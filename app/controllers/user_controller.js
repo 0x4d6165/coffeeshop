@@ -1,5 +1,6 @@
 var User = require('../models/User');
-var scraperjs = require('scraperjs');
+var request = require('request');
+var cheerio = require('cheerio');
 
 /**
  * Route /settings/account
@@ -43,24 +44,24 @@ exports.postUpdateAccount = function(req, res, next) {
     if (req.body.band) {
       user.profile.favoriteBands = req.body.band;
       var arr = req.body.band.split(',');
-      scraperjs.StaticScraper.create('https://en.wikipedia.org/wiki/' + arr[0])
-        .scrape(function($) {
-          return $('th a').map(function() {
-            return $(this).text();
-          }).get();
-        }, function(genres) {
-            user.profile.genres = genres;
+      request('http://en.wikipedia.org/wiki/' + convertToSlug(arr[0]), function(err, response, body) {
+        if (err || response.statusCode !== 200) return next(err);
+        var $ = cheerio.load(body);
+        user.profile.favoriteGenres = $($('.infobox').find('tr')[4]).find('td a').text().split(' ').join(',');
+        user.save(function(err) {
+          if (err) return next(err);
+          req.flash('success', { msg: 'Profile information updated.' });
+          res.redirect('/settings/account');
         });
+      });
     } else {
       user.profile.favoriteBands = '';
+      user.save(function(err) {
+        if (err) return next(err);
+        req.flash('success', { msg: 'Profile information updated.' });
+        res.redirect('/settings/account');
+      });
     }
-    user.profile.favoriteGenres;
-
-    user.save(function(err) {
-      if (err) return next(err);
-      req.flash('success', { msg: 'Profile information updated.' });
-      res.redirect('/settings/account');
-    });
   });
 };
 
@@ -139,3 +140,10 @@ exports.getUserProfile = function(req, res, next) {
     });
   }); 
 };
+
+function convertToSlug(Text) {
+    return Text
+        .toLowerCase()
+        .replace(/ /g,'-')
+        .replace(/[^\w-]+/g,'');
+}

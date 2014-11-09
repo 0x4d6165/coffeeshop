@@ -1,7 +1,7 @@
 extends ../layout
 
 block content
-  .row
+  .row.clearfix
     .col-md-4
       img.avatar.center-block(src="#{User.profile.avatar || User.gravatar()}" alt="avatar profile")
     .col-md-8
@@ -12,13 +12,33 @@ block content
       a(href="#{User.profile.website}")= User.profile.website
     if User.profile.bio
       p= User.profile.bio
-    if User.posts.length > 1
-      for post in User.posts
-        br
-        .panel.panel-default
-          .panel-body
-            h3= post.title
-            h6.text-muted Posted on #{moment(post.time).fromNow()} by #{post.author}
-            p= post.body
-            if post.img
-              img.img-responsive(src="#{post.img}")
+  hr
+  br
+  .row
+    .col-md-6
+      h1 Favorite Bands
+      .jumbotron
+        h3
+          strong
+            - var band = User.profile.favoriteBands.split(',')[0];
+            a(href="https://en.wikipedia.com/#{band}" target="_blank")= band
+    .col-md-6
+      h1 Favorite Genres
+      .jumbotron
+        - var genres = User.profile.favoriteGenres.split(',');
+        for genre in genres
+          h3
+            strong
+              a(href="https://en.wikipedia.com/#{genre}" target="_blank")= genre
+
+  hr
+  if User.posts.length > 1
+    for post in User.posts
+      br
+      .panel.panel-default
+        .panel-body
+          h3= post.title
+          h6.text-muted Posted on #{moment(post.time).fromNow()} by #{post.author}
+          p= post.body
+          if post.img
+            img.img-responsive(src="#{post.img}")
