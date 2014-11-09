@@ -51,6 +51,11 @@ block content
               p.help-block About yourself in 160 characters or less.
                 span.count.pull-right
           .form-group
+            label.col-sm-2.control-label Favorite Bands
+            .col-sm-10
+              input.form-control(type="text" name="Favoriteband" value="#{user.profile.favoriteBand}")
+              p.help-block Have a homepage or a blog? Put the address here.
+          .form-group
             .col-sm-offset-2.col-sm-4
               button.btn.btn-primary(type="submit") Save Changes
         hr
