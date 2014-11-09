@@ -11,5 +11,5 @@ block content
         h6.text-muted Posted on #{moment(post.time).fromNow()} by #{post.author}
         p= post.body
         if post.img
-          img(src="#{post.img}")
+          img.img-responsive(src="#{post.img}")
     br
