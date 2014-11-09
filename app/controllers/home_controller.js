@@ -1,3 +1,7 @@
+var moment = require('moment');
+var Post = require('../models/User');
+var User = require('../models/Post');
+
 /**
  * Route /
  * --------------------
