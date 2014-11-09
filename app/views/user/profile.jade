@@ -14,25 +14,31 @@ block content
       p= User.profile.bio
   hr
   br
-  .row
-    .col-md-6
-      h1 Favorite Bands
-      .jumbotron
-        h3
-          strong
-            - var band = User.profile.favoriteBands.split(',')[0];
-            a(href="https://en.wikipedia.com/#{band}" target="_blank")= band
-    .col-md-6
-      h1 Favorite Genres
-      .jumbotron
-        - var genres = User.profile.favoriteGenres.split(',');
-        for genre in genres
+  if User.profile.favoriteBands
+    .row
+      .col-md-6
+        h1 Favorite Bands
+        .jumbotron
+          - var bands = User.profile.favoriteBands.split(',');
+          - var best = bands.shift();
           h3
             strong
-              a(href="https://en.wikipedia.com/#{genre}" target="_blank")= genre
+              a(href="https://en.wikipedia.com/#{best}" target="_blank")= best
+          if bands.length >= 1
+            for band in bands
+              h3
+                a(href="https://en.wikipedia.com/#{band}" target="_blank")= band
+      .col-md-6
+        h1 Favorite Genres
+        .jumbotron
+          - var genres = User.profile.favoriteGenres.split(',');
+          for genre in genres
+            h3
+              strong
+                a(href="https://en.wikipedia.com/#{genre}" target="_blank")= genre
 
   hr
-  if User.posts.length > 1
+  if User.posts.length >= 1
     for post in User.posts
       br
       .panel.panel-default
