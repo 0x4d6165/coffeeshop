@@ -3,11 +3,13 @@ var passportConf = require('./passport');
 var homeController = require('../app/controllers/home_controller');
 var authController = require('../app/controllers/authentication_controller');
 var userController = require('../app/controllers/user_controller');
+var postController = require('../app/controllers/post_controller');
 
 var router = express.Router();
 
 router.route('/')
-  .get(homeController.getIndex);
+  .get(homeController.getIndex)
+  .post(postController.postUserPost);
 
 router.route('/about')
   .get(homeController.getAbout);
