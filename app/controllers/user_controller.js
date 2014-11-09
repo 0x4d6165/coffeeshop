@@ -1,4 +1,5 @@
 var User = require('../models/User');
+var scraperjs = require('scraperjs');
 
 /**
  * Route /settings/account
@@ -38,6 +39,22 @@ exports.postUpdateAccount = function(req, res, next) {
     user.profile.location = req.body.location || '';
     user.profile.website = req.body.website || '';
     user.profile.bio = req.body.bio || '';
+
+    if (req.body.band) {
+      user.profile.favoriteBands = req.body.band;
+      var arr = req.body.band.split(',');
+      scraperjs.StaticScraper.create('https://en.wikipedia.org/wiki/' + arr[0])
+        .scrape(function($) {
+          return $('th a').map(function() {
+            return $(this).text();
+          }).get();
+        }, function(genres) {
+            user.profile.genres = genres;
+        });
+    } else {
+      user.profile.favoriteBands = '';
+    }
+    user.profile.favoriteGenres;
 
     user.save(function(err) {
       if (err) return next(err);

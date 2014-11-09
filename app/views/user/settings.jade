@@ -18,6 +18,11 @@ block content
         form.form-horizontal(role="form" method="post")
           input(type="hidden" name="_csrf" value=_csrf)
           .form-group
+            label.col-sm-2.control-label Favorite Band(s)
+            .col-sm-10
+              input.form-control(type="text" name="band" value="#{user.profile.favoriteBands}")
+              p.help-block Put your favorite bands in order here. Seperate them with commas.
+          .form-group
             label.col-sm-2.control-label Avatar
             .col-sm-10
               input.form-control(type="text" name="avatar" value="#{user.profile.avatar}")
@@ -77,4 +82,4 @@ block bottom
       $textarea.keyup(function(){
         $count.text((160 - $(this).val().length));
       });
-    })();
+    });

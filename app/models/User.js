@@ -12,7 +12,9 @@ var userSchema = new mongoose.Schema({
     bio: { type: String, default: '' },
     location: { type: String, default: '' },
     website: { type: String, default: '' },
-    avatar: { type: String, default: '' }
+    avatar: { type: String, default: '' },
+    favoriteBands: { type: String, default: '' },
+    favoriteGenres: { type: String, default: '' }
   },
 
   posts: [],

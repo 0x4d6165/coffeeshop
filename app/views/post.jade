@@ -1,4 +1,15 @@
 extends layout
 
 block content
-  h1 You are now login! :)
+  h1 Dashboard
+  hr
+  for post in posts
+    br
+    .panel.panel-default
+      .panel-body
+        h3= post.title
+        h6.text-muted Posted on #{moment(post.time).fromNow()} by #{post.author}
+        p= post.body
+        if post.img
+          img(src="#{post.img}")
+    br

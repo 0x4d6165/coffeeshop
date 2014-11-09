@@ -9,4 +9,13 @@ block content
     hr.tagline-divider
     img.logo.col-lg-4.block-center(src="http://www.clker.com/cliparts/1/c/1/S/m/c/coffee-bean.svg" alt="http://www.clker.com/cliparts/1/c/1/S/m/c/coffee-bean.svg")
     hr.main-divider
-    
+    for post in posts
+      br
+      .panel.panel-default
+        .panel-body
+          h3= post.title
+          h6.text-muted Posted on #{moment(post.time).fromNow()} by #{post.author}
+          p= post.body
+          if post.img
+            img(src="#{post.img}")
+      br

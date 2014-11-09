@@ -1,6 +1,6 @@
 var moment = require('moment');
-var Post = require('../models/User');
-var User = require('../models/Post');
+var User = require('../models/User');
+var Post = require('../models/Post');
 
 /**
  * Route /
@@ -9,15 +9,23 @@ var User = require('../models/Post');
 
 // Home or index page.
 exports.getIndex = function(req, res) {
-  if (req.isAuthenticated()) {
-    res.render('post', {
-      title: 'Dashboard'
+  Post.find({}, function(err, posts) {
+    posts.sort(function(a, b) {
+      return b.date - a.date;
     });
-  } else {
-    res.render('index', {
-      title: 'Home'
-    });
-  }
+    posts.reverse();
+    if (req.isAuthenticated()) {
+      res.render('post', {
+        title: 'Dashboard',
+        posts: posts
+      });
+    } else {
+      res.render('index', {
+        title: 'Home',
+        posts: posts
+      });
+    }
+  });
 };
 
 exports.getAbout = function(req, res) {

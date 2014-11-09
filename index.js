@@ -7,6 +7,7 @@ var compress = require('compression');
 var session = require('express-session');
 var csrf = require('lusca').csrf();
 var methodOverride = require('method-override');
+var moment = require('moment');
 
 var _ = require('lodash');
 var MongoStore = require('connect-mongo')({ session: session });
@@ -76,6 +77,7 @@ app.use(function(req, res, next) {
 app.use(function(req, res, next) {
   // Make user object available in templates.
   res.locals.user = req.user;
+  res.locals.moment = moment;
   next();
 });
 
