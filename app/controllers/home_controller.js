@@ -21,3 +21,9 @@ exports.getAbout = function(req, res) {
     title: 'About'
   }); 
 };
+
+exports.getSupport = function(req, res) {
+  res.render('support', {
+    title: 'Support'
+  }); 
+};

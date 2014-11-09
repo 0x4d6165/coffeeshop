@@ -14,6 +14,9 @@ router.route('/')
 router.route('/about')
   .get(homeController.getAbout);
 
+router.route('/support')
+  .get(homeController.getSupport);
+
 router.route('/signup')
   .get(authController.getSignup)
   .post(authController.postSignup);
