@@ -26,6 +26,7 @@ exports.postUserPost = function(req, res, next) {
     User.update({ uid: req.user.uid }, { $pushAll: { posts: [newPost] } }, { upsert: true }, 
       function(err) {
         if (err) return next(err); 
+        req.flash('success', { msg: 'Post succesfully posted.' });
         res.redirect('/');
       });
   });
