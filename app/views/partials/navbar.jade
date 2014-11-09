@@ -13,8 +13,6 @@
           a(href="/") Home
         li(class=title==='About'?'active':undefined)
           a(href="/about") About
-        li(class=title==='support'?'active':undefined)
-          a(href="/support") Support
       ul.nav.navbar-nav.navbar-right
         if !user
           li(class=title==='Sign Up'?'active':undefined)
@@ -40,6 +38,10 @@
                 a(href='/settings/account')
                   span.fa.fa-cogs
                   | &nbsp;Account Settings
+              li
+                a(href='/support')
+                  span.fa.fa-life-buoy
+                  | &nbsp;Support
               li.divider
               li
                 a(href='/logout')
