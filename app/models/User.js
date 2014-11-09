@@ -15,6 +15,8 @@ var userSchema = new mongoose.Schema({
     avatar: { type: String, default: '' }
   },
 
+  posts: [],
+
   resetPasswordToken: String,
   resetPasswordExpires: Date
 });
