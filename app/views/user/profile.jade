@@ -8,7 +8,17 @@ block content
       h1= User.username
     if User.profile.location
       h4 Location: #{User.profile.location}
-    if User.profile.location
+    if User.profile.website
       a(href="#{User.profile.website}")= User.profile.website
     if User.profile.bio
       p= User.profile.bio
+    if User.posts.length > 1
+      for post in User.posts
+        br
+        .panel.panel-default
+          .panel-body
+            h3= post.title
+            h6.text-muted Posted on #{moment(post.time).fromNow()} by #{post.author}
+            p= post.body
+            if post.img
+              img.img-responsive(src="#{post.img}")
