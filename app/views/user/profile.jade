@@ -12,9 +12,9 @@ block content
       a(href="#{User.profile.website}")= User.profile.website
     if User.profile.bio
       p= User.profile.bio
-  hr
-  br
   if User.profile.favoriteBands
+    hr
+    br
     .row
       .col-md-6
         h1 Favorite Bands
@@ -37,8 +37,8 @@ block content
               strong
                 a(href="http://en.wikipedia.com/wiki/#{genre}" target="_blank")= genre
 
-  hr
   if User.posts.length >= 1
+    hr
     for post in User.posts
       br
       .panel.panel-default
