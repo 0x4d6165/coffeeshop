@@ -140,6 +140,10 @@ exports.postDeleteAccount = function(req, res, next) {
 exports.getUserProfile = function(req, res, next) {
   User.findOne({ uid: req.params.user.toLowerCase() }, function(err, user) {
     if (err || !user) return next(err);
+    var posts = user.posts;
+    posts.sort(function(a, b) {
+      return b.time - a.time;
+    });
     res.render('user/profile', {
       title: user.username,
       User: user

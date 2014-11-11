@@ -11,9 +11,8 @@ var Post = require('../models/Post');
 exports.getIndex = function(req, res) {
   Post.find({}, function(err, posts) {
     posts.sort(function(a, b) {
-      return b.date - a.date;
+      return b.time - a.time;
     });
-    posts.reverse();
     if (req.isAuthenticated()) {
       res.render('post', {
         title: 'Dashboard',
