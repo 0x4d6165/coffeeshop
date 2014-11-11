@@ -1,6 +1,7 @@
 var User = require('../models/User');
 var request = require('request');
 var cheerio = require('cheerio');
+var chalk = require('chalk');
 
 /**
  * Route /settings/account
@@ -47,7 +48,12 @@ exports.postUpdateAccount = function(req, res, next) {
       request('http://en.wikipedia.org/wiki/' + convertToSlug(arr[0]), function(err, response, body) {
         if (err || response.statusCode !== 200) return next(err);
         var $ = cheerio.load(body);
-        user.profile.favoriteGenres = $($('.infobox').find('tr')[4]).find('td a').text().split(' ').join(',');
+        var genres = [];
+        var data = $($('.infobox').find('tr')[4]).find('td a');
+        for (var i = 0, len = data.length; i < len; i++) {
+          genres.push($(data[i]).text());
+        }
+        user.profile.favoriteGenres = genres.join(',');
         user.save(function(err) {
           if (err) return next(err);
           req.flash('success', { msg: 'Profile information updated.' });

@@ -23,11 +23,11 @@ block content
           - var best = bands.shift();
           h3
             strong
-              a(href="https://en.wikipedia.com/#{best}" target="_blank")= best
+              a(href="http://en.wikipedia.com/wiki/#{best}" target="_blank")= best
           if bands.length >= 1
             for band in bands
               h3
-                a(href="https://en.wikipedia.com/#{band}" target="_blank")= band
+                a(href="http://en.wikipedia.com/wiki/#{band}" target="_blank")= band
       .col-md-6
         h1 Favorite Genres
         .jumbotron
@@ -35,7 +35,7 @@ block content
           for genre in genres
             h3
               strong
-                a(href="https://en.wikipedia.com/#{genre}" target="_blank")= genre
+                a(href="http://en.wikipedia.com/wiki/#{genre}" target="_blank")= genre
 
   hr
   if User.posts.length >= 1
